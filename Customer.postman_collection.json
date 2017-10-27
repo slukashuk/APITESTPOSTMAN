@@ -1,0 +1,673 @@
+{
+	"info": {
+		"name": "Customer",
+		"_postman_id": "e65c0959-4aae-a67f-b0d6-951e26d4aa96",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create new customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"idCustomer\", jsonData.id);",
+							"",
+							"",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "content-length",
+						"value": "877",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "tardis.twinfield.com:8180"
+					},
+					{
+						"key": "origin",
+						"value": "http://tardis.twinfield.com:8180"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "XgXdG",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "AMOu6",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"generalLedgerAccountId\":\"5d7f5639-e868-4c07-9854-b361963fb0e9\",\"defaultCountryCode\":\"NL\",\"type\":\"Business\",\"culture\":\"en-GB\",\"addresses\":[{\"countryCode\":\"NL\",\"isDefault\":true,\"addressType\":\"Invoice\",\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":[],\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":30,\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":0,\"manager\":null,\"outstandingPaymentsRemindType\":\"StoreToFileManager\"},\"cultureBind\":{\"code\":\"en-GB\",\"localisedName\":\"English (United Kingdom)\",\"caption\":\"English (United Kingdom)\",\"value\":\"en-GB\"},\"discountPremiumItemId\":null,\"sepaCollectionTypeSettings\":null,\"name\":\"New customer\"}"
+				},
+				"url": {
+					"raw": "http://tardis.twinfield.com:8180/api/sales/customers",
+					"protocol": "http",
+					"host": [
+						"tardis",
+						"twinfield",
+						"com"
+					],
+					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"customers"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete created customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "tardis.twinfield.com:8180"
+					},
+					{
+						"key": "if-match",
+						"value": "\"33\""
+					},
+					{
+						"key": "origin",
+						"value": "http://tardis.twinfield.com:8180"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "mszCR",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "AMOu6",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"tardis",
+						"twinfield",
+						"com"
+					],
+					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "409 error when delete already deleted customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "tardis.twinfield.com:8180"
+					},
+					{
+						"key": "if-match",
+						"value": "\"44\""
+					},
+					{
+						"key": "origin",
+						"value": "http://tardis.twinfield.com:8180"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "mszCR"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "AMOu6"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"tardis",
+						"twinfield",
+						"com"
+					],
+					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update just deleted customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"//tests should be writen after fixing bug - response should be 4.."
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2594",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "tardis.twinfield.com:8180"
+					},
+					{
+						"key": "if-match",
+						"value": "\"99\""
+					},
+					{
+						"key": "origin",
+						"value": "http://tardis.twinfield.com:8180"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "aFDQT",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "vjmF6",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":\"9f2e89cb-311b-42ec-b2c0-ed0abc1224ff\",\"version\":5,\"number\":\"1094\",\"name\":\"Update deleted customer\",\"webSite\":null,\"type\":\"Business\",\"segmentCode\":null,\"culture\":\"en-GB\",\"defaultCountryCode\":\"NL\",\"addresses\":[{\"subsectionId\":\"3988676d-a103-4503-9d8d-23b8db343ac4\",\"addressType\":\"Invoice\",\"addressLine1\":null,\"addressLine2\":null,\"postalCode\":null,\"city\":null,\"countryCode\":\"NL\",\"forAttentionOf\":null,\"phone\":null,\"fax\":null,\"vatNumber\":null,\"commerceNumber\":null,\"email\":null,\"isDefault\":true,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"subsectionId\":\"8d04a94f-4c51-48d9-a6e2-34bc087bf49c\",\"accountHolder\":null,\"accountNumber\":null,\"iban\":null,\"bicCode\":null,\"code\":null,\"name\":null,\"addressLine1\":null,\"addressLine2\":null,\"postalCode\":null,\"addressNo\":null,\"state\":null,\"city\":null,\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":null,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"billingEmail\":null,\"electronicBillingEnabled\":false,\"generalLedgerAccountId\":\"5d7f5639-e868-4c07-9854-b361963fb0e9\",\"generalLedgerAccountDisplayName\":null,\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":30,\"remittanceAdviceEmail\":null,\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":0,\"manager\":null,\"managersComment\":null,\"outstandingPaymentsRemindType\":\"StoreToFileManager\",\"outstandingPaymentsRemindEmail\":null},\"sepaCollectionTypeSettings\":null,\"blocked\":false,\"deleted\":false,\"collectionTypeId\":null,\"discountPremiumItemId\":null,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff\"},\"patch\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff\"},\"vatnumber\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff/vatnumber\"},\"createpostingrule\":{\"href\":\"http://tardis.twinfield.com:8180/api/bookkeeping/postingrule\"},\"timeline\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff/timeline\"},\"block\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff/block\"}},\"cultureBind\":{\"code\":\"en-GB\",\"localisedName\":\"English (United Kingdom)\",\"caption\":\"English (United Kingdom)\",\"value\":\"en-GB\"}}"
+				},
+				"url": {
+					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"tardis",
+						"twinfield",
+						"com"
+					],
+					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Restore customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2613",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "tardis.twinfield.com:8180"
+					},
+					{
+						"key": "if-match",
+						"value": "\"44\""
+					},
+					{
+						"key": "origin",
+						"value": "http://tardis.twinfield.com:8180"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}/restore",
+					"protocol": "http",
+					"host": [
+						"tardis",
+						"twinfield",
+						"com"
+					],
+					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}",
+						"restore"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "409 error when restore just restored customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2613",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "tardis.twinfield.com:8180"
+					},
+					{
+						"key": "if-match",
+						"value": "\"44\""
+					},
+					{
+						"key": "origin",
+						"value": "http://tardis.twinfield.com:8180"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}/restore",
+					"protocol": "http",
+					"host": [
+						"tardis",
+						"twinfield",
+						"com"
+					],
+					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}",
+						"restore"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update just restored customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2604",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "tardis.twinfield.com:8180"
+					},
+					{
+						"key": "if-match",
+						"value": "\"*\""
+					},
+					{
+						"key": "origin",
+						"value": "http://tardis.twinfield.com:8180"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "sjfg9"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "72mVi"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":\"6aff1eb0-c999-4085-a838-f15ad4a0ac19\",\"version\":4,\"number\":\"1009\",\"name\":\"Update restored customer\",\"webSite\":\"www.twinfield.com\",\"type\":\"Business\",\"segmentCode\":\"\",\"culture\":\"nl-BE\",\"defaultCountryCode\":\"NL\",\"addresses\":[{\"subsectionId\":\"dd68aaaf-05c0-41b9-8479-3f2e3c3f0e9f\",\"addressType\":\"Invoice\",\"addressLine1\":\"address 1009\",\"addressLine2\":\"\",\"postalCode\":\"I Postcode\",\"city\":\"I Place\",\"countryCode\":\"NL\",\"forAttentionOf\":\"I Tav\",\"phone\":\"I Telefoon\",\"fax\":\"I Fax\",\"vatNumber\":\"155676842B01\",\"commerceNumber\":\"I KVK\",\"email\":\"testcollect@twinfield.com\",\"isDefault\":true,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"subsectionId\":\"f6be57ce-84cb-4430-9f6c-6d5da061166e\",\"accountHolder\":\"Standard bank\",\"accountNumber\":\"123456789\",\"iban\":\"\",\"bicCode\":\"\",\"code\":\"\",\"name\":\"\",\"addressLine1\":\"\",\"addressLine2\":\"\",\"postalCode\":\"\",\"addressNo\":\"\",\"state\":\"\",\"city\":\"Standard Bank 5\",\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":null,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"billingEmail\":\"testcollect@twinfield.com\",\"electronicBillingEnabled\":true,\"generalLedgerAccountId\":\"5d7f5639-e868-4c07-9854-b361963fb0e9\",\"generalLedgerAccountDisplayName\":\"1300 - Debiteuren\",\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":3,\"remittanceAdviceEmail\":\"\",\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":5,\"manager\":{\"code\":\"SASKIA\",\"name\":\"Saskia\"},\"managersComment\":\"\",\"outstandingPaymentsRemindType\":\"DoNotRemind\",\"outstandingPaymentsRemindEmail\":\"testcollect@twinfield.com\"},\"sepaCollectionTypeSettings\":null,\"blocked\":false,\"deleted\":false,\"collectionTypeId\":\"a6ec8e5f-6507-4719-ae42-74898f28b25c\",\"discountPremiumItemId\":null,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"patch\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"vatnumber\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/vatnumber\"},\"createpostingrule\":{\"href\":\"http://tardis.twinfield.com:8180/api/bookkeeping/postingrule\"},\"timeline\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/timeline\"},\"block\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/block\"}},\"cultureBind\":{\"code\":\"nl-BE\",\"localisedName\":\"Nederlands (België)\",\"caption\":\"Nederlands (België)\",\"value\":\"nl-BE\"}}"
+				},
+				"url": {
+					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"tardis",
+						"twinfield",
+						"com"
+					],
+					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
