@@ -1,0 +1,2197 @@
+{
+	"info": {
+		"name": "Sales invoices",
+		"_postman_id": "ac3a5568-608a-35f9-012f-4ac778f91b78",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List of due sales invoices",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set due invoice Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"DueID\", jsonData.items[i].id);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/due?asc=false&limit=20&offset=0&orderBy=date",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"due"
+					],
+					"query": [
+						{
+							"key": "asc",
+							"value": "false",
+							"equals": true
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"equals": true
+						},
+						{
+							"key": "offset",
+							"value": "0",
+							"equals": true
+						},
+						{
+							"key": "orderBy",
+							"value": "date",
+							"equals": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET due invoice by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/publishedinvoice/{{DueID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"publishedinvoice",
+						"{{DueID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET overdue sales invoices listing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set due overdue Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"OverdueID\", jsonData.items[i].id);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/overdue?asc=false&limit=20&offset=0&orderBy=date",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"overdue"
+					],
+					"query": [
+						{
+							"key": "asc",
+							"value": "false",
+							"equals": true
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"equals": true
+						},
+						{
+							"key": "offset",
+							"value": "0",
+							"equals": true
+						},
+						{
+							"key": "orderBy",
+							"value": "date",
+							"equals": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET overdue invoice by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/publishedinvoice/{{OverdueID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"publishedinvoice",
+						"{{OverdueID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Paid listing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set paid invoice Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"PaidID\", jsonData.items[i].id);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "0YOO8",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "sF86/",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/paid?asc=false&limit=20&offset=0&orderBy=date",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"paid"
+					],
+					"query": [
+						{
+							"key": "asc",
+							"value": "false",
+							"equals": true
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"equals": true
+						},
+						{
+							"key": "offset",
+							"value": "0",
+							"equals": true
+						},
+						{
+							"key": "orderBy",
+							"value": "date",
+							"equals": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET paid invoice by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/publishedinvoice/{{PaidID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"publishedinvoice",
+						"{{PaidID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET list of reminded invoices",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set reminded invoice Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"RemindedID\", jsonData.items[i].id);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/reminded?asc=false&limit=20&offset=0&orderBy=date",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"reminded"
+					],
+					"query": [
+						{
+							"key": "asc",
+							"value": "false",
+							"equals": true
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"equals": true
+						},
+						{
+							"key": "offset",
+							"value": "0",
+							"equals": true
+						},
+						{
+							"key": "orderBy",
+							"value": "date",
+							"equals": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET overdue reminded invoice by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "postman-token",
+						"value": "94535c27-a70f-4b8c-9bd5-064b1aafb6cf"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposedinvoice/{{RemindedID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposedinvoice",
+						"{{RemindedID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new customer copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"DEBId\", jsonData.id);",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "content-length",
+						"value": "877",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "XgXdG",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "AMOu6",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"New customer\"}"
+				},
+				"url": {
+					"raw": "{{host}}/api/sales/customers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"DEBName\", jsonData.name);",
+							"postman.setEnvironmentVariable(\"DEBCode\", jsonData.number);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "\"1\""
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/customers/{{DEBId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{DEBId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create an article with a new code copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Check code is set\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code) === (postman.getEnvironmentVariable(\"code\"));",
+							"",
+							"});",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    postman.setEnvironmentVariable(\"Articleid\", jsonData.id);",
+							"    tests[\"Status code is 201\"] = pm.response.to.have.status(201);",
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var articleCode = parseInt(Math.random() * 10000);",
+							"",
+							"pm.environment.set(\"code\", articleCode);",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "content-length",
+						"value": "569",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "name",
+						"value": "n"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"12\",\"code\":{{code}},\"netPrice\":\"300\"}"
+				},
+				"url": {
+					"raw": "{{host}}/api/sales/articles",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"articles"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retriev Article copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							"postman.setEnvironmentVariable(\"ArticleName\", jsonData.name);",
+							"postman.setEnvironmentVariable(\"ArticleCode\", jsonData.code);",
+							"postman.setEnvironmentVariable(\"ArticlePrice\", jsonData.netPrice);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "if-none-match",
+						"value": "\"3\"",
+						"disabled": true
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "xL39F",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "rfylD",
+						"disabled": true
+					},
+					{
+						"key": "id",
+						"value": "{{id}}",
+						"disabled": true
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/articles/{{Articleid}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"articles",
+						"{{Articleid}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create VAT code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var code = parseInt(Math.random() * 10000);",
+							"",
+							"pm.environment.set(\"VATCode\", code);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "128",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"*\""
+					},
+					{
+						"key": "origin",
+						"value": "http://{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "Fem0O",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "28bUR",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"type\":\"Sales\",\"translations\":[],\"_links\":{},\"edifactAlias\":null,\"edifactVatNameMappingDescription\":\"\",\"code\":\"{{VATCode}}\",\"name\":\"VATSales1\"}"
+				},
+				"url": {
+					"raw": "{{host}}/api/vatmanagement/vats",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"vatmanagement",
+						"vats"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET all VAT on listing page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.test(\"Set VAT id for sales\", function () {\r",
+							"    i=0;\r",
+							"    while(i < jsonData.items.length) {\r",
+							"    if(jsonData.items[i].code === postman.getEnvironmentVariable(\"VATCode\")) {\r",
+							"    postman.setEnvironmentVariable(\"VATId\", jsonData.items[i].id);\r",
+							"        }\r",
+							"    i++;\r",
+							"    }\r",
+							"});\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/vatmanagement/vats?asc=true&orderBy=code",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"vatmanagement",
+						"vats"
+					],
+					"query": [
+						{
+							"key": "asc",
+							"value": "true",
+							"equals": true
+						},
+						{
+							"key": "orderBy",
+							"value": "code",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all Balance copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Set balance Id\", function () {",
+							"    let i = 0;",
+							"    ",
+							"    while (i < jsonData.page.length) {",
+							"        if (jsonData.page[i].subanalysis === \"Forbidden\")",
+							"            postman.setEnvironmentVariable(\"BALId\", jsonData.page[i].id);",
+							"        i++;",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Set balance code\", function () {",
+							"    let i=0;",
+							"  ",
+							"    while(i < jsonData.page.length) {",
+							"        if(jsonData.page[i].subanalysis === \"Forbidden\")",
+							"            postman.setEnvironmentVariable(\"BALCode\", jsonData.page[i].code);",
+							"        i++;",
+							"    }",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=balance",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "balance",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create VAT rate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "content-length",
+						"value": "630",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "origin",
+						"value": "http://{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "WO0h5"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "28bUR"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"vat\":{\"id\":\"{{VATId}}\",\"code\":\"{{VATCode}}\",\"name\":\"VATSales\"},\"percent\":10,\"startDate\":\"2017-12-11T00:00:00.000Z\",\"name\":\"10\",\"shortName\":\"vatSales1\",\"translations\":[],\"discountAccount\":null,\"writeOffAccount\":null,\"allocationRules\":[{\"isVatLine\":true,\"percent\":100,\"generalLedgerAccount\":{\"id\":\"{{BALId}}\",\"code\":\"{{BALCode}}\",\"name\":\"Goodwill\",\"subanalysis\":\"Forbidden\"},\"costCenterAccount\":null,\"vatGroup\":null,\"generalLedgerAccountDescription\":\"0100 - Goodwill\",\"costCenterAccountDescription\":\"\",\"vatGroupDescription\":\"\"}],\"_links\":{},\"discountAccountDescription\":\"\",\"writeOffAccountDescription\":\"\"}"
+				},
+				"url": {
+					"raw": "{{host}}/api/vatmanagement/vatrate",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"vatmanagement",
+						"vatrate"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create proposed invoice with old model version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=2"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "content-length",
+						"value": "2521",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "origin",
+						"value": "http://{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"templateCulture\": \"en-GB\",\n    \"templateId\": null,\n    \"invoiceData\": {\n        \"customerId\": \"{{DEBId}}\",\n        \"customerCode\": \"{{DEBCode}}\",\n        \"customerName\": \"{{DEBName}}\",\n        \"customerContactPerson\": \"Svetlana\",\n        \"customerAddressLine1\": \"Address1\",\n        \"customerAddressLine2\": \"Address2\",\n        \"customerPostalCode\": 04112,\n        \"customerCity\": \"Kyiv\",\n        \"customerCountry\": \"NL\",\n        \"customerVatNumber\": \"144053597B01\",\n        \"companyInfo\": \"Info Company\",\n        \"invoiceDate\": {\n            \"year\": 2017,\n            \"month\": 12,\n            \"day\": 19\n        },\n        \"dueDate\": {\n            \"year\": 2017,\n            \"month\": 12,\n            \"day\": 25\n        },\n        \"deliveryDate\": {\n        \"year\": 2017,\n        \"month\": 12,\n        \"day\": 7\n\t\t},\n        \"reference\": \"11f\",\n        \"currencyCode\": \"EUR\",\n        \"intro\": \"Intro text 1@\",\n        \"outro\": \"Outro 1@#<sdf>FF\",\n        \"footer\": \"Foo 1@#<>\",\n        \"logoFileName\": null,\n        \"projectId\": \"fc1cc32e-73d9-41ad-9172-af4fc229536f\",\n        \"projectCode\": \"P0000\",\n        \"items\": [\n            {\n                \"quantity\":1,\n\t\t\t\t\"quantityPrecision\":0,\n\t\t\t\t\"quantityHidden\":true,\n\t\t\t\t\"description\":\"25\",\n\t\t\t\t\"pricePerUnit\":5,\n\t\t\t\t\"vatId\":\"{{VATId}}\",\n\t\t\t\t\"articleId\":\"{{Articleid}}\",\n\t\t\t\t\"articleName\":\"{{ArticleName}}\",\n\t\t\t\t\"articleCode\":\"{{ArticleCode}}\",\n\t\t\t\t\"ictInfo\":null,\n\t\t\t\t\"kind\":\"Taxable\"\n            }\n        ],\n        \"discount\": 20,\n        \"discountType\": \"Percentage\",\n        \"attachmentIds\": null,\n        \"isVatInclusive\": false\n    },\n    \"recurrenceInformation\": null\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposedinvoice",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposedinvoice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create proposed invoice with new model version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "content-length",
+						"value": "2521",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "origin",
+						"value": "http://{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"Regular\",\n    \"customerId\": \"{{DEBId}}\",\n    \"customerCode\": \"{{DEBCode}}\",\n    \"customerName\": \"{{DEBName}}\",\n    \"customerContactPerson\": \"Svetlana\",\n    \"customerAddressLine1\": \"Address1\",\n    \"customerAddressLine2\": \"Address2\",\n    \"customerPostalCode\": 04212,\n    \"customerCity\": \"Kyiv\",\n    \"customerCountry\": \"NL\",\n    \"customerVatNumber\": \"144053597B01\",\n    \"companyInfo\": \"Info Company\",\n    \"invoiceDate\": {\n        \"year\": 2017,\n        \"month\": 12,\n        \"day\": 10\n    },\n    \"dueDate\": {\n        \"year\": 2017,\n        \"month\": 12,\n        \"day\": 15\n    },\n    \"deliveryDate\": {\n        \"year\": 2017,\n        \"month\": 12,\n        \"day\": 7\n    },\n    \"reference\": \"11f\",\n    \"currencyCode\": \"EUR\",\n    \"intro\": \"Intro text 1@\",\n    \"outro\": \"Outro 1@#<sdf>FF\",\n    \"footer\": \"Foo 1@#<>\",\n    \"logoFileName\": null,\n    \"projectId\": \"fc1cc32e-73d9-41ad-9172-af4fc229536f\",\n    \"projectCode\": \"P0000\",\n    \"grossTotal\": 360,\n    \"netTotal\": 30,\n    \"earlyPaymentTotal\": 30,\n    \"netTotalWithDiscount\": 360,\n    \"totalDiscount\": 20,\n    \"legalVatInfo\": null,\n    \"lines\": [],\n    \"vatLines\": [],\n    \"templateId\": null,\n    \"templateCulture\": \"en-GB\",\n    \"recurrenceInformation\": null,\n    \"originalRecurrenceId\": null,\n    \"items\": [\n        {\n            \"description\": \"Description 1\",\n            \"quantity\": 1,\n            \"pricePerUnit\": 300000,\n            \"kind\": \"Taxable\",\n            \"quantityPrecision\": 0,\n            \"quantityHidden\": null,\n            \"vatId\": \"{{VATId}}\",\n            \"articleId\": \"{{Articleid}}\",\n            \"articleName\": \"{{ArticleName}}\",\n            \"articleCode\": \"{{ArticleCode}}\",\n            \"ictInfo\": null\n        }\n    ],\n    \"discount\": 20,\n    \"discountType\": \"Percentage\",\n    \"attachmentIds\": null,\n    \"isVatInclusive\": false,\n    \"version\": 0\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposedinvoice",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposedinvoice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Proposed sales invoices listing page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set proposed invoice Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"ProposedID\", jsonData.items[i].id);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=1"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposed?asc=false&limit=20&offset=0&orderBy=date",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposed"
+					],
+					"query": [
+						{
+							"key": "asc",
+							"value": "false",
+							"equals": true
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"equals": true
+						},
+						{
+							"key": "offset",
+							"value": "0",
+							"equals": true
+						},
+						{
+							"key": "orderBy",
+							"value": "date",
+							"equals": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get proposed sales invoice by ID old version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=2"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposedinvoice/{{ProposedID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposedinvoice",
+						"{{ProposedID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get proposed sales invoice by ID new version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposedinvoice/{{ProposedID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposedinvoice",
+						"{{ProposedID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update proposed invoice with old model",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=2"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "5146",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"*\""
+					},
+					{
+						"key": "origin",
+						"value": "http://{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"templateCulture\": \"en-GB\",\n    \"templateId\": null,\n    \"invoiceData\": {\n        \"customerId\": \"{{DEBId}}\",\n        \"customerCode\": \"{{DEBCode}}\",\n        \"customerName\": \"{{DEBName}}\",\n        \"customerContactPerson\": \"Svetlana\",\n        \"customerAddressLine1\": \"Address1\",\n        \"customerAddressLine2\": \"Address2\",\n        \"customerPostalCode\": 04112,\n        \"customerCity\": \"Kyiv\",\n        \"customerCountry\": \"NL\",\n        \"customerVatNumber\": \"144053597B01\",\n        \"companyInfo\": \"Info Company\",\n        \"invoiceDate\": {\n            \"year\": 2017,\n            \"month\": 1,\n            \"day\": 1\n        },\n        \"dueDate\": {\n            \"year\": 2017,\n            \"month\": 1,\n            \"day\": 1\n        },\n        \"deliveryDate\": {\n        \"year\": 2017,\n        \"month\": 12,\n        \"day\": 7\n\t\t},\n        \"reference\": \"11f\",\n        \"currencyCode\": \"EUR\",\n        \"intro\": \"Intro text 1@\",\n        \"outro\": \"Outro 1@#<sdf>FF\",\n        \"footer\": \"Foo 1@#<>\",\n        \"logoFileName\": null,\n        \"projectId\": \"fc1cc32e-73d9-41ad-9172-af4fc229536f\",\n        \"projectCode\": \"P0000\",\n        \"items\": [\n            {\n                \"description\": \"dfg\",\n                \"quantity\": 1,\n                \"pricePerUnit\": 400,\n                \"kind\": \"NonTaxable\",\n                \"quantityPrecision\": 0,\n                \"quantityHidden\": true,\n                \"vatId\": \"{{VATId}}\",\n                \"articleId\": \"{{Articleid}}\",\n                \"articleName\": \"{{ArticleName}}\",\n                \"articleCode\": \"{{ArticleCode}}\",\n                \"ictInfo\": null\n            }\n        ],\n        \"discount\": 20,\n        \"discountType\": \"Percentage\",\n        \"attachmentIds\": null,\n        \"isVatInclusive\": false\n    },\n    \"recurrenceInformation\": null\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposedinvoice/{{ProposedID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposedinvoice",
+						"{{ProposedID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update proposed invoice with new model",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "5146",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"*\""
+					},
+					{
+						"key": "origin",
+						"value": "http://{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"Regular\",\n    \"customerId\": \"{{DEBId}}\",\n    \"customerCode\": \"{{DEBCode}}\",\n    \"customerName\": \"{{DEBName}}\",\n    \"customerContactPerson\": \"Svetlana\",\n    \"customerAddressLine1\": \"Address1\",\n    \"customerAddressLine2\": \"Address2\",\n    \"customerPostalCode\": 04212,\n    \"customerCity\": \"Kyiv\",\n    \"customerCountry\": \"NL\",\n    \"customerVatNumber\": \"144053597B01\",\n    \"companyInfo\": \"Info Company\",\n    \"invoiceDate\": {\n        \"year\": 2017,\n        \"month\": 1,\n        \"day\": 1\n    },\n    \"dueDate\": {\n        \"year\": 2017,\n        \"month\": 1,\n        \"day\": 1\n    },\n    \"deliveryDate\": {\n        \"year\": 2017,\n        \"month\": 12,\n        \"day\": 7\n    },\n    \"reference\": \"11f\",\n    \"currencyCode\": \"EUR\",\n    \"intro\": \"Intro text 1@\",\n    \"outro\": \"Outro 1@#<sdf>FF\",\n    \"footer\": \"Foo 1@#<>\",\n    \"logoFileName\": null,\n    \"projectId\": \"fc1cc32e-73d9-41ad-9172-af4fc229536f\",\n    \"projectCode\": \"P0000\",\n    \"grossTotal\": 360,\n    \"netTotal\": 30,\n    \"earlyPaymentTotal\": 30,\n    \"netTotalWithDiscount\": 360,\n    \"totalDiscount\": 20,\n    \"legalVatInfo\": null,\n    \"lines\": [],\n    \"vatLines\": [],\n    \"templateId\": null,\n    \"templateCulture\": \"en-GB\",\n    \"recurrenceInformation\": null,\n    \"originalRecurrenceId\": null,\n    \"items\": [\n        {\n            \"description\": \"Description 1\",\n            \"quantity\": 1,\n            \"pricePerUnit\": 40000,\n            \"kind\": \"NonTaxable\",\n            \"quantityPrecision\": 0,\n            \"quantityHidden\": null,\n            \"vatId\": \"{{VATId}}\",\n            \"articleId\": \"{{Articleid}}\",\n            \"articleName\": \"{{ArticleName}}\",\n            \"articleCode\": \"{{ArticleCode}}\",\n            \"ictInfo\": null\n        }\n    ],\n    \"discount\": 20,\n    \"discountType\": \"Percentage\",\n    \"attachmentIds\": null,\n    \"isVatInclusive\": false,\n    \"version\": 0\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposedinvoice/{{ProposedID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposedinvoice",
+						"{{ProposedID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send proposed invoice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "25",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"*\""
+					},
+					{
+						"key": "origin",
+						"value": "http://{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"slukashuk@twinfield.com\""
+				},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposedinvoice/{{ProposedID}}/send",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposedinvoice",
+						"{{ProposedID}}",
+						"send"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET old model version of published sales invoice by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=2"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/publishedinvoice/{{ProposedID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"publishedinvoice",
+						"{{ProposedID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET new model version of published sales invoice by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Invoice date is shown\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"invoiceDate\");",
+							"});",
+							"",
+							"pm.test(\"Due date is shown\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"dueDate\");",
+							"});",
+							"",
+							"pm.test(\"Currency code is shown\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"currencyCode\");",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/publishedinvoice/{{ProposedID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"publishedinvoice",
+						"{{ProposedID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET old proposed invoice model",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=2"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "73R99"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "lOmWH"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposedinvoice",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposedinvoice"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET new proposed invoice model",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "73R99"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "lOmWH"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/sales/invoices/proposedinvoice",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"invoices",
+						"proposedinvoice"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

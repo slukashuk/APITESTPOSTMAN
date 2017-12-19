@@ -17,19 +17,21 @@
 							"pm.test(\"Check code is set\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.code) === (postman.getEnvironmentVariable(\"code\"));",
+							"",
 							"});",
-							"",
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"id\", jsonData.id);",
-							"postman.setGlobalVariable(\"revenueId\", jsonData.revenueTypeId);",
-							"",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    postman.setEnvironmentVariable(\"id\", jsonData.id);",
+							"    postman.setEnvironmentVariable(\"revenueTypeId\", jsonData.revenueTypeId);",
+							"    ",
 							"tests[\"Status code is 201\"] = pm.response.to.have.status(201);",
 							"tests[\"Check name is set\"] = jsonData.name === \"12\";",
 							"tests[\"Check net prise is set\"] = jsonData.netPrice === 0;",
 							"tests[\"Check gross price is set\"] = jsonData.grossPrice === 0;",
-							"tests[\"Check self link is returned\"] = jsonData._links.self.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));",
-							"tests[\"Check update link is returned\"] = jsonData._links.update.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));",
-							"tests[\"Check delete link is returned\"] = jsonData._links.delete.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));"
+							"tests[\"Check self link is returned\"] = jsonData._links.self.href === ( \"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
+							"tests[\"Check update link is returned\"] = jsonData._links.update.href === (\"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
+							"tests[\"Check delete link is returned\"] = jsonData._links.delete.href === (\"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
+							"",
+							""
 						]
 					}
 				},
@@ -79,11 +81,11 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -100,17 +102,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8020 - Omzet (19%)\",\"costCenterName\":\" \",\"revenueTypeId\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"netPrice\":0,\"grossPrice\":0,\"shouldShowCostCenter\":true,\"costCenterMandatory\":false,\"revenueTypeBind\":{\"id\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"code\":\"8020\",\"name\":\"Omzet (19%)\",\"subanalysis\":\"Allowed\",\"fixedVatId\":null,\"value\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"caption\":\"8020 - Omzet (19%)\",\"label\":\"8020 - Omzet (19%)\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"availableTranslations\":[],\"name\":\"12\",\"code\":{{code}}, \"translations\":{}}"
+					"raw": "{\"name\":\"12\",\"code\":{{code}}}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles",
+					"raw": "http://{{host}}/api/sales/articles",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -135,9 +134,10 @@
 							"tests[\"Check name is set\"] = jsonData.name === \"12\";",
 							"tests[\"Check net prise is set\"] = jsonData.netPrice === 0;",
 							"tests[\"Check gross price is set\"] = jsonData.grossPrice === 0;",
-							"tests[\"Check self link is returned\"] = jsonData._links.self.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));",
-							"tests[\"Check update link is returned\"] = jsonData._links.update.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));",
-							"tests[\"Check delete link is returned\"] = jsonData._links.delete.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));"
+							"tests[\"Check self link is returned\"] = jsonData._links.self.href === ( \"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
+							"tests[\"Check update link is returned\"] = jsonData._links.update.href === (\"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
+							"tests[\"Check delete link is returned\"] = jsonData._links.delete.href === (\"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
+							""
 						]
 					}
 				}
@@ -160,7 +160,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:818"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-none-match",
@@ -197,14 +197,11 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -227,9 +224,10 @@
 							"var jsonData = JSON.parse(responseBody);",
 							"",
 							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
-							"tests[\"Check self link is returned\"] = jsonData._links.self.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));",
-							"tests[\"Check update link is returned\"] = jsonData._links.update.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));",
-							"tests[\"Check delete link is returned\"] = jsonData._links.delete.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));"
+							"tests[\"Check self link is returned\"] = jsonData._links.self.href === ( \"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
+							"tests[\"Check update link is returned\"] = jsonData._links.update.href === (\"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
+							"tests[\"Check delete link is returned\"] = jsonData._links.delete.href === (\"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
+							""
 						]
 					}
 				}
@@ -268,7 +266,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -276,7 +274,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -302,14 +300,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -370,7 +365,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -378,7 +373,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -401,17 +396,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8020 - Omzet (19%)\",\"costCenterName\":\" \",\"id\":\"9fe51341-9be1-40fe-a5bf-f7a994a5de3f\",\"name\":\"22111\",\"code\":{{code}},\"netPrice\":0,\"grossPrice\":0,\"vatId\":null,\"revenueTypeId\":\"4f9ed217-79b3-4eef-8c63-db1be766b249\",\"costCenterId\":null,\"translations\":{},\"version\":2,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/9fe51341-9be1-40fe-a5bf-f7a994a5de3f\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/9fe51341-9be1-40fe-a5bf-f7a994a5de3f\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/9fe51341-9be1-40fe-a5bf-f7a994a5de3f\"}},\"shouldShowCostCenter\":true,\"costCenterMandatory\":false,\"revenueTypeBind\":{\"id\":\"4f9ed217-79b3-4eef-8c63-db1be766b249\",\"code\":\"8020\",\"name\":\"Omzet (19%)\",\"subanalysis\":\"Allowed\",\"fixedVatId\":null,\"value\":\"4f9ed217-79b3-4eef-8c63-db1be766b249\",\"caption\":\"8020 - Omzet (19%)\",\"label\":\"8020 - Omzet (19%)\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"availableTranslations\":[]}"
+					"raw": "{\"name\":\"22111\",\"code\":{{code}},\"revenueTypeId\":\"revenueTypeId\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/9fe51341-9be1-40fe-a5bf-f7a994a5de3g",
+					"raw": "http://{{host}}/api/sales/articles/9fe51341-9be1-40fe-a5bf-f7a994a5de3g",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -472,15 +464,15 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
-						"value": "\"88\""
+						"value": "\"1\""
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -503,17 +495,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8020 - Omzet (19%)\",\"costCenterName\":\" \",\"id\":\"a37d2c1e-296d-4f18-b682-ba48494bfb05\",\"name\":\"12\",\"code\":\"4606\",\"netPrice\":0,\"grossPrice\":0,\"vatId\":null,\"revenueTypeId\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"costCenterId\":null,\"translations\":{},\"version\":1,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/a37d2c1e-296d-4f18-b682-ba48494bfb05\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/a37d2c1e-296d-4f18-b682-ba48494bfb05\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/a37d2c1e-296d-4f18-b682-ba48494bfb05\"}},\"shouldShowCostCenter\":true,\"costCenterMandatory\":false,\"revenueTypeBind\":{\"id\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"code\":\"8020\",\"name\":\"Omzet (19%)\",\"subanalysis\":\"Allowed\",\"fixedVatId\":null,\"value\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"caption\":\"8020 - Omzet (19%)\",\"label\":\"8020 - Omzet (19%)\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"availableTranslations\":[]}"
+					"raw": "{\"name\":\"12\",\"code\":{{code}},\"revenueTypeId\":\"{{revenueTypeId}}\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -574,7 +563,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -582,7 +571,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -605,17 +594,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"Updated article\",\"code\":\"15\",\"revenueTypeId\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\"}"
+					"raw": "{\"name\":\"Updated article\",\"code\":\"15\",\"revenueTypeId\":\"{{revenueTypeId}}\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -672,11 +658,11 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -689,17 +675,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8020 - Omzet (19%)\",\"costCenterName\":\" \",\"revenueTypeId\":\"{{revenueId}}\",\"netPrice\":0,\"grossPrice\":0,\"shouldShowCostCenter\":true,\"costCenterMandatory\":false,\"revenueTypeBind\":{\"id\":\"4f9ed217-79b3-4eef-8c63-db1be766b249\",\"code\":\"8020\",\"name\":\"Omzet (19%)\",\"subanalysis\":\"Allowed\",\"fixedVatId\":null,\"value\":\"4f9ed217-79b3-4eef-8c63-db1be766b249\",\"caption\":\"8020 - Omzet (19%)\",\"label\":\"8020 - Omzet (19%)\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"availableTranslations\":[],\"name\":\"same\",\"code\":\"15\",\"translations\":{}}"
+					"raw": "{\"revenueTypeId\":\"{{revenueTypeId}}\",\"code\":\"15\",\"name\":\"15\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles",
+					"raw": "http://{{host}}/api/sales/articles",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -760,11 +743,11 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -777,17 +760,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8020 - Omzet (19%)\",\"costCenterName\":\" \",\"revenueTypeId\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"netPrice\":0,\"grossPrice\":0,\"shouldShowCostCenter\":true,\"costCenterMandatory\":false,\"revenueTypeBind\":{\"id\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"code\":\"8020\",\"name\":\"Omzet (19%)\",\"subanalysis\":\"Allowed\",\"fixedVatId\":null,\"value\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"caption\":\"8020 - Omzet (19%)\",\"label\":\"8020 - Omzet (19%)\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"availableTranslations\":[],\"name\":\"12\",\"code\":\"\", \"translations\":{}}"
+					"raw": "{\"code\":\"\", \"name\":\"12\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles",
+					"raw": "http://{{host}}/api/sales/articles",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -838,7 +818,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -846,7 +826,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -874,14 +854,11 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -933,15 +910,15 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
-						"value": "\"14\""
+						"value": "\"100\""
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -953,23 +930,22 @@
 					},
 					{
 						"key": "x-ms-request-id",
-						"value": "1TK4o"
+						"value": "1TK4o",
+						"disabled": true
 					},
 					{
 						"key": "x-ms-request-root-id",
-						"value": "dKeq2"
+						"value": "dKeq2",
+						"disabled": true
 					}
 				],
 				"body": {},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -1031,7 +1007,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -1062,17 +1038,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8020 - Omzet (19%)\",\"costCenterName\":\" \",\"id\":\"9fe51341-9be1-40fe-a5bf-f7a994a5de3f\",\"name\":\"Update Deleted\",\"code\":\"{{code}}\",\"netPrice\":0,\"grossPrice\":0,\"vatId\":null,\"revenueTypeId\":\"{{revenueId}}\",\"costCenterId\":null,\"translations\":{},\"version\":2,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/9fe51341-9be1-40fe-a5bf-f7a994a5de3f\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/9fe51341-9be1-40fe-a5bf-f7a994a5de3f\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/9fe51341-9be1-40fe-a5bf-f7a994a5de3f\"}},\"shouldShowCostCenter\":true,\"costCenterMandatory\":false,\"revenueTypeBind\":{\"id\":\"4f9ed217-79b3-4eef-8c63-db1be766b249\",\"code\":\"8020\",\"name\":\"Omzet (19%)\",\"subanalysis\":\"Allowed\",\"fixedVatId\":null,\"value\":\"4f9ed217-79b3-4eef-8c63-db1be766b249\",\"caption\":\"8020 - Omzet (19%)\",\"label\":\"8020 - Omzet (19%)\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"availableTranslations\":[]}"
+					"raw": "{\"name\":\"Update Deleted\",\"code\":\"{{code}}\",\"revenueTypeId\":\"{{revenueTypeId}}\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -1136,11 +1109,11 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -1153,17 +1126,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8020 - Omzet (19%)\",\"costCenterName\":\" \",\"revenueTypeId\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"netPrice\":0,\"grossPrice\":0,\"shouldShowCostCenter\":true,\"costCenterMandatory\":false,\"revenueTypeBind\":{\"id\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"code\":\"8020\",\"name\":\"Omzet (19%)\",\"subanalysis\":\"Allowed\",\"fixedVatId\":null,\"value\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"caption\":\"8020 - Omzet (19%)\",\"label\":\"8020 - Omzet (19%)\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"availableTranslations\":[],\"name\":\"12\",\"code\":\"15\", \"translations\":{}}"
+					"raw": "{\"revenueTypeId\":\"{{revenueTypeId}}\",\"name\":\"12\",\"code\":\"15\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles",
+					"raw": "http://{{host}}/api/sales/articles",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -1223,7 +1193,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -1231,7 +1201,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -1254,17 +1224,220 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8020 - Omzet (19%)\",\"costCenterName\":\" \",\"revenueTypeId\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"netPrice\":0,\"grossPrice\":0,\"shouldShowCostCenter\":true,\"costCenterMandatory\":false,\"revenueTypeBind\":{\"id\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"code\":\"8020\",\"name\":\"Omzet (19%)\",\"subanalysis\":\"Allowed\",\"fixedVatId\":null,\"value\":\"88d1da2e-e0a7-44c4-8ad2-850db9c38d86\",\"caption\":\"8020 - Omzet (19%)\",\"label\":\"8020 - Omzet (19%)\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"availableTranslations\":[],\"name\":\"Without Code\",\"code\":\"\", \"translations\":{}}"
+					"raw": "{\"revenueTypeId\":\"{{revenueTypeId}}\",\"name\":\"Without Code\",\"code\":\"\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"articles",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "400 error if update article with 0 if-match value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"If-Match header is missing proper Etag\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "995",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"0\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "WciTw",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "rfylD",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"revenueTypeId\":\"{{revenueTypeId}}\",\"name\":\"Without Code\"}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"articles",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "400 error if update article with letters in if-match value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"If-Match header is missing proper Etag\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "995",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"bla\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "WciTw",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "rfylD",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"revenueTypeId\":\"{{revenueTypeId}}\",\"name\":\"Without Code\"}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
 					"path": [
 						"api",
 						"sales",
@@ -1284,17 +1457,24 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"id\", jsonData.id);",
-							"postman.setGlobalVariable(\"revenueId\", jsonData.revenueTypeId);",
+							"pm.test(\"Check code is set\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code) === (postman.getEnvironmentVariable(\"code\"));",
 							"",
+							"});",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    postman.setEnvironmentVariable(\"id\", jsonData.id);",
+							"    postman.setEnvironmentVariable(\"revenueTypeId\", jsonData.revenueTypeId);",
+							"    postman.setEnvironmentVariable(\"costCenterId\", jsonData.costCenterId);",
+							"    postman.setEnvironmentVariable(\"selfLink\", jsonData._links.self.href);",
+							"    ",
 							"tests[\"Status code is 201\"] = pm.response.to.have.status(201);",
 							"tests[\"Check name is set\"] = jsonData.name === \"Only name\";",
 							"tests[\"Check net prise is set\"] = jsonData.netPrice === 0;",
 							"tests[\"Check gross price is set\"] = jsonData.grossPrice === 0;",
-							"tests[\"Check self link is returned\"] = jsonData._links.self.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));",
-							"tests[\"Check update link is returned\"] = jsonData._links.update.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));",
-							"tests[\"Check update link is returned\"] = jsonData._links.delete.href === (\"http://tardis.twinfield.com:8180/api/sales/articles/\" + postman.getGlobalVariable(\"id\"));",
+							"tests[\"Check self link is returned\"] = jsonData._links.self.href === ( postman.getEnvironmentVariable(\"selfLink\"));",
+							"tests[\"Check update link is returned\"] = jsonData._links.update.href === (\"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
+							"tests[\"Check delete link is returned\"] = jsonData._links.delete.href === (\"http://\" + postman.getEnvironmentVariable(\"host\") + \"/api/sales/articles/\" + postman.getEnvironmentVariable(\"id\"));",
 							"",
 							"",
 							"",
@@ -1349,11 +1529,11 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -1373,14 +1553,11 @@
 					"raw": "{\"name\":\"Only name\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles",
+					"raw": "http://{{host}}/api/sales/articles",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -1451,11 +1628,11 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -1472,17 +1649,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeId\":\"{{revenueId}}\",\"name\":\"\"}"
+					"raw": "{\"revenueTypeId\":\"{{revenueTypeId}}\",\"name\":\"\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles",
+					"raw": "http://{{host}}/api/sales/articles",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -1553,11 +1727,11 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -1574,119 +1748,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeId\":\"{{revenueId}}\"}"
+					"raw": "{\"revenueTypeId\":\"{{revenueTypeId}}\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles",
+					"raw": "http://{{host}}/api/sales/articles",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
-					"path": [
-						"api",
-						"sales",
-						"articles"
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "422 error when create an article with empty but requred cost center",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 422\", function () {",
-							"    pm.response.to.have.status(422);",
-							"});"
-						]
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"var articleCode = parseInt(Math.random() * 10000);",
-							"",
-							"pm.environment.set(\"code\", articleCode);",
-							"",
-							"",
-							"",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "accept",
-						"value": "application/vnd.twinfield+json;version=latest"
-					},
-					{
-						"key": "accept-encoding",
-						"value": "gzip, deflate"
-					},
-					{
-						"key": "accept-language",
-						"value": "en-US,en;q=0.8"
-					},
-					{
-						"key": "content-length",
-						"value": "569",
-						"disabled": true
-					},
-					{
-						"key": "content-type",
-						"value": "application/json;charset=UTF-8"
-					},
-					{
-						"key": "cookie",
-						"value": "{{cookie}}"
-					},
-					{
-						"key": "host",
-						"value": "tardis.twinfield.com:8180"
-					},
-					{
-						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
-					},
-					{
-						"key": "proxy-connection",
-						"value": "keep-alive"
-					},
-					{
-						"key": "user-agent",
-						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
-					},
-					{
-						"key": "name",
-						"value": "n"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"name\":\"Updated article\",\"revenueTypeId\":\"107299a9-126e-494b-b7fe-11774c072573\",\"costCenterId\":\"\"}"
-				},
-				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles",
-					"protocol": "http",
-					"host": [
-						"tardis",
-						"twinfield",
-						"com"
-					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -1757,11 +1826,11 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -1781,14 +1850,11 @@
 					"raw": "{\"name\":\"Updated article\",\"revenueTypeId\":\"\",\"costCenterId\":\"\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles",
+					"raw": "http://{{host}}/api/sales/articles",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -1848,7 +1914,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -1856,7 +1922,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -1869,109 +1935,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8022 - Omzet buiten de EU\",\"costCenterName\":\"00000 - 00000\",\"id\":\"a37d2c1e-296d-4f18-b682-ba48494bfb05\",\"name\":\"Updated article\",\"code\":\"\",\"netPrice\":0,\"grossPrice\":0,\"vatId\":null,\"revenueTypeId\":\"107299a9-126e-494b-b7fe-11774c072573\",\"costCenterId\":\"6690cf5d-6e33-482a-bb92-33f46d19d0a4\",\"translations\":{},\"version\":5,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/a37d2c1e-296d-4f18-b682-ba48494bfb05\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/a37d2c1e-296d-4f18-b682-ba48494bfb05\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/a37d2c1e-296d-4f18-b682-ba48494bfb05\"}},\"shouldShowCostCenter\":true,\"costCenterMandatory\":true,\"revenueTypeBind\":{\"id\":\"107299a9-126e-494b-b7fe-11774c072573\",\"code\":\"8022\",\"name\":\"Omzet buiten de EU\",\"subanalysis\":\"Mandatory\",\"fixedVatId\":null,\"value\":\"107299a9-126e-494b-b7fe-11774c072573\",\"caption\":\"8022 - Omzet buiten de EU\",\"label\":\"8022 - Omzet buiten de EU\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"costCenterBind\":{\"id\":\"6690cf5d-6e33-482a-bb92-33f46d19d0a4\",\"code\":\"00000\",\"name\":\"00000\",\"value\":\"6690cf5d-6e33-482a-bb92-33f46d19d0a4\",\"caption\":\"00000 - 00000\",\"label\":\"00000 - 00000\"},\"availableTranslations\":[]}"
+					"raw": "{\"name\":\"Updated article\",\"revenueTypeId\":\"{{RevType_CostCenter}}\",\"costCenterId\":\"{{CostCenter}}\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
-					"path": [
-						"api",
-						"sales",
-						"articles",
-						"{{id}}"
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "422 error when updating article without revenue type",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 422\", function () {",
-							"    pm.response.to.have.status(422);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "accept",
-						"value": "application/vnd.twinfield+json;version=latest"
-					},
-					{
-						"key": "accept-encoding",
-						"value": "gzip, deflate"
-					},
-					{
-						"key": "accept-language",
-						"value": "en-US,en;q=0.8"
-					},
-					{
-						"key": "cache-control",
-						"value": "max-age=0"
-					},
-					{
-						"key": "content-length",
-						"value": "1270",
-						"disabled": true
-					},
-					{
-						"key": "content-type",
-						"value": "application/json;charset=UTF-8"
-					},
-					{
-						"key": "cookie",
-						"value": "{{cookie}}"
-					},
-					{
-						"key": "host",
-						"value": "tardis.twinfield.com:8180"
-					},
-					{
-						"key": "if-match",
-						"value": "\"*\""
-					},
-					{
-						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
-					},
-					{
-						"key": "proxy-connection",
-						"value": "keep-alive"
-					},
-					{
-						"key": "user-agent",
-						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"name\":\"Updated article\"}"
-				},
-				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
-					"protocol": "http",
-					"host": [
-						"tardis",
-						"twinfield",
-						"com"
-					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -2032,7 +2003,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -2040,7 +2011,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -2053,17 +2024,103 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8022 - Omzet buiten de EU\",\"name\":\"Updated article\",\"code\":\"47\",\"netPrice\":55.5,\"revenueTypeId\":\"107299a9-126e-494b-b7fe-11774c072573\",}"
+					"raw": "{\"name\":\"Updated article\",\"code\":\"47\",\"netPrice\":55.5,\"revenueTypeId\":\"{{RevType_CostCenter}}\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"articles",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "422 error when updating article without revenue type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "1270",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"*\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Updated article\"}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
 					"path": [
 						"api",
 						"sales",
@@ -2124,7 +2181,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -2132,7 +2189,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -2145,17 +2202,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8022 - Omzet buiten de EU\",\"costCenterName\":\"00000 - 00000\",\"id\":\"55cb8b95-9a47-4479-b3f6-9f21acb1a4de\",\"name\":\"Article with KPL\",\"code\":\"\",\"netPrice\":0,\"grossPrice\":0,\"vatId\":\"552caca1-3e64-43bc-b572-cc619305ca52\",\"revenueTypeId\":\"307299a9-126e-494b-b7fe-11774c072573\",\"costCenterId\":\"6690cf5d-6e33-482a-bb92-33f46d19d0a4\",\"translations\":{\"en-GB\":\"Car en-GB\",\"nl-BE\":\"NL-NL\",\"nl-NL\":\"NL-BE\",\"fr-FR\":\"Fr-FR\"},\"version\":6,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/55cb8b95-9a47-4479-b3f6-9f21acb1a4de\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/55cb8b95-9a47-4479-b3f6-9f21acb1a4de\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/55cb8b95-9a47-4479-b3f6-9f21acb1a4de\"}},\"shouldShowCostCenter\":true,\"costCenterMandatory\":true,\"revenueTypeBind\":{\"id\":\"107299a9-126e-494b-b7fe-11774c072573\",\"code\":\"8022\",\"name\":\"Omzet buiten de EU\",\"subanalysis\":\"Mandatory\",\"fixedVatId\":null,\"value\":\"107299a9-126e-494b-b7fe-11774c072573\",\"caption\":\"8022 - Omzet buiten de EU\",\"label\":\"8022 - Omzet buiten de EU\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"costCenterBind\":{\"id\":\"6690cf5d-6e33-482a-bb92-33f46d19d0a4\",\"code\":\"00000\",\"name\":\"00000\",\"value\":\"6690cf5d-6e33-482a-bb92-33f46d19d0a4\",\"caption\":\"00000 - 00000\",\"label\":\"00000 - 00000\"},\"availableTranslations\":[{\"cultureCode\":\"en-GB\",\"translatedName\":\"Car en-GB\",\"inFocus\":true},{\"cultureCode\":\"nl-BE\",\"translatedName\":\"NL-NL\",\"inFocus\":true},{\"cultureCode\":\"nl-NL\",\"translatedName\":\"NL-BE\",\"inFocus\":true},{\"cultureCode\":\"fr-FR\",\"translatedName\":\"Fr-FR\",\"inFocus\":true}],\"vatIdBind\":{\"id\":\"552caca1-3e64-43bc-b572-cc619305ca52\",\"code\":\"VN\",\"translatedShortName\":\"V 0%\",\"caption\":\"V 0%\",\"value\":\"552caca1-3e64-43bc-b572-cc619305ca52\"}}"
+					"raw": "{\"name\":\"Article with KPL\",\"code\":\"\",\"netPrice\":0,\"grossPrice\":0,\"revenueTypeId\":\"307299a9-126e-494b-b7fe-11774c072573\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -2216,7 +2270,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -2224,7 +2278,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -2237,17 +2291,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeId\":\"107299a9-126e-494b-b7fe-11774c072573\",\"costCenterId\":\"6590cf5d-6e33-482a-bb92-33f46d19d0a4\", \"name\":\"Invalid cost center\"}"
+					"raw": "{\"revenueTypeId\":\"{{RevType_CostCenter}}\",\"costCenterId\":\"00cf0d-6e00-000a-bb92-00f46d19d0a4\", \"name\":\"Invalid cost center\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/{{id}}",
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -2260,9 +2311,41 @@
 			"response": []
 		},
 		{
-			"name": "Another ID for revenue and KPL",
+			"name": "Create an article with revenue + cost center required",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    postman.setEnvironmentVariable(\"id\", jsonData.id);",
+							"    postman.setEnvironmentVariable(\"revenueTypeId\", jsonData.revenueTypeId);"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var articleCode = parseInt(Math.random() * 10000);",
+							"",
+							"pm.environment.set(\"code\", articleCode);",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "accept",
@@ -2277,12 +2360,9 @@
 						"value": "en-US,en;q=0.8"
 					},
 					{
-						"key": "cache-control",
-						"value": "max-age=0"
-					},
-					{
 						"key": "content-length",
-						"value": "1746"
+						"value": "569",
+						"disabled": true
 					},
 					{
 						"key": "content-type",
@@ -2290,19 +2370,15 @@
 					},
 					{
 						"key": "cookie",
-						"value": "ai_user=kEP0D|2017-09-01T09:41:44.667Z; culture=en-GB; Logonbox.idToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImEzck1VZ01Gdjl0UGNsTGE2eUYzekFrZnF1RSIsImtpZCI6ImEzck1VZ01Gdjl0UGNsTGE2eUYzekFrZnF1RSJ9.eyJpc3MiOiJodHRwOi8vdGFyZGlzLnR3aW5maWVsZC5jb20vYXV0aC9hdXRoZW50aWNhdGlvbiIsImF1ZCI6ImxvZ29uYm94IiwiZXhwIjoxNTA5MDAyMDQ2LCJuYmYiOjE1MDkwMDE3NDYsIm5vbmNlIjoiNjM2NDQ1OTg1MzcwODQ2NDQ3Lk1HVmpPV1UzTldZdE5HWmxPUzAwWkdRd0xUZzVNV1F0T1dOa1pUY3lPREU1TkRaak1ETXlOMkUwTkdFdE1URTRPUzAwTmpsa0xXSXlObUV0WW1Fd1l6TXdPV000WTJNMSIsImlhdCI6MTUwOTAwMTc0Niwic2lkIjoiOWEzNTQwNDcyYzBiNTg2N2RjNTg3YjJmZmQyMWMxNjciLCJzdWIiOiJleUpQY21kaGJtbHpZWFJwYjI1VmMyVnlJam9pVTFaRlZFeEJUa0VpTENKUGNtZGhibWx6WVhScGIyNUpaQ0k2SW1VNVltUmxaREU1TFRjNFl6UXROR015WlMwNFpqa3pMVGhoTUdJM09HVTBNak0zWlNKOSIsImF1dGhfdGltZSI6MTUwOTAwMTc0NiwiaWRwIjoiaWRzcnYiLCJ0d2Yub3JnYW5pc2F0aW9uVXNlckNvZGUiOiJTVkVUTEFOQSIsInR3Zi5vcmdhbmlzYXRpb25JZCI6ImU5YmRlZDE5LTc4YzQtNGMyZS04ZjkzLThhMGI3OGU0MjM3ZSIsInR3Zi5jbGFzc2ljQWNjZXNzIjoiMSIsImFtciI6WyIyZmEiXX0.McMsM_z79lj9q_FO0ckLLuV-yluzlJRCEwrJH9Cv2c2k3hJpXZei25mQFA-nkMx93yXk0J3hfXFxb39sHIBmoboMGTAVyzCA28874s2-VLraA2MqwGL_D4NeFv08xhc9k3aINuq9Irgy5NkxrCUtQBnSBFd_P9DNphzHai0L-XsoJBIg2L97LR1noWEgZE65YD2b-AfzpKJW6pFiYOg5QzHlOJ-ntOA4OBA8KmdjsMj7h2UVBlrAHZMI2sW1bEtgqXWO2SOmSZ4aABL9CjnbS95ALAsqQBVJe9cHOsHVAruHH3n65Hftk48MBB-HpAEF6BpSVE3HYo-lOnC_KYnM3A; .AspNet.Cookies=wHVjXuXXn5UG4HNFt2STbF2VWbHq9wdGjX9jsdRVN3EiDxaFlEdwkVfEzxPSJoNi-3wGUWgGiW2pm8Y2QQgHnu8N3ayHKZIazNItMM9ID9dEVL22uZD5zOaWWKPrQColinKVoySQsbA8KZpupxLjXys95ZNAXQR00CvDByGlYVBvHjlm7qeGGM_8Qsc9UAp2WFSYgjOsOev5X59cfE24hEzffUn7gXBsOHuOb7pt_oJxP2QUUd8UqTTuS7RTLsZB0runlxgMTEkwfJKKQuIZxxA9AtqXwUAhRE85lvjO-FyqdFvMAlKEhstlt6geR8H0AsotKgvFJHQJ5cX7ozo5O1SenMqSGXvZtiwt45eKtdWZ_zqBrbwpeoR63wDi2RouRG0THWZSYm9Bo_sg6EUhsG8icdJF6hz8C9wpLb9A1yfO40QEDKmsKczIwdGD2EmrwnuxamJTLmjwKufyfjyjaLU7hxB59rJuotXgQrdECL6LcyTsqjFlI-HnTqrEq6booV_ukIwQhsP9CyfTJNql1fHP8fov_s3IN2viPejkdWictcWq2ZX8T6kJNCyIk9084zuJi1mHzvhAEBbpCLknvhSO-yfM9xP7adKR1zAh9DIklS41fxRQq4-09vXHEAjZgm-8rB2r65I-0YKDUI26Qj1JULB1RMQBsxE-HJLEtq2obeGm8GLYV8CictILvp_eHm2c50qlt39vJchLvFJw6OP5RBA-Lfj3es7eiGRB7jDRXjCVURkdTmDztgnBb7MKv9INjLeU6riPFlouxMeWzcInfrYK7xno-0rUDzQBKnngr3QRk0IOEFaoZtxrgiLUVj4xXbGqdS8iPvsonVsAiIC-Jcc; TargetUrl=%2Fdispatch.aspx; SID=SessionId=adbf7639-1a0f-426c-beba-9f6a13aaa0d9&OrganisationId=e9bded19-78c4-4c2e-8f93-8a0b78e4237e; ai_session=GT1yV|1509016228440|1509019029163.175"
+						"value": "{{cookie}}"
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
-					},
-					{
-						"key": "if-match",
-						"value": "\"7\""
+						"value": "{{host}}"
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -2313,32 +2389,369 @@
 						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
 					},
 					{
-						"key": "x-ms-request-id",
-						"value": "lPezw"
-					},
-					{
-						"key": "x-ms-request-root-id",
-						"value": "+Va9W"
+						"key": "name",
+						"value": "n"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"revenueTypeName\":\"8021 - name for 8021\",\"costCenterName\":\"00001 - Cost center 1\",\"id\":\"55cb8b95-9a47-4479-b3f6-9f21acb1a4de\",\"name\":\"Article with KPL\",\"code\":null,\"netPrice\":0,\"grossPrice\":0,\"vatId\":\"552caca1-3e64-43bc-b572-cc619305ca52\",\"revenueTypeId\":\"6282f1e6-f4c6-4042-b49c-45d41b1244ed\",\"costCenterId\":\"9b55ca6d-6ac1-4e74-bf9e-f691d2ba6bb3\",\"translations\":{\"en-GB\":\"Car en-GB\",\"nl-BE\":\"NL-NL\",\"nl-NL\":\"NL-BE\",\"fr-FR\":\"Fr-FR\"},\"version\":7,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/55cb8b95-9a47-4479-b3f6-9f21acb1a4de\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/55cb8b95-9a47-4479-b3f6-9f21acb1a4de\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/articles/55cb8b95-9a47-4479-b3f6-9f21acb1a4de\"}},\"shouldShowCostCenter\":true,\"costCenterMandatory\":true,\"revenueTypeBind\":{\"id\":\"6282f1e6-f4c6-4042-b49c-45d41b1244ed\",\"code\":\"8021\",\"name\":\"name for 8021\",\"subanalysis\":\"Mandatory\",\"fixedVatId\":null,\"value\":\"6282f1e6-f4c6-4042-b49c-45d41b1244ed\",\"caption\":\"8021 - name for 8021\",\"label\":\"8021 - name for 8021\"},\"hasFixedVat\":false,\"hasFixedVatThatExists\":false,\"vatIdBind\":{\"id\":\"552caca1-3e64-43bc-b572-cc619305ca52\",\"code\":\"VN\",\"translatedShortName\":\"V 0%\",\"caption\":\"V 0%\",\"value\":\"552caca1-3e64-43bc-b572-cc619305ca52\"},\"costCenterBind\":{\"id\":\"9b55ca6d-6ac1-4e74-bf9e-f691d2ba6bb3\",\"code\":\"00001\",\"name\":\"Cost center 1\",\"value\":\"9b55ca6d-6ac1-4e74-bf9e-f691d2ba6bb3\",\"caption\":\"00001 - Cost center 1\",\"label\":\"00001 - Cost center 1\"},\"availableTranslations\":[{\"cultureCode\":\"en-GB\",\"translatedName\":\"Car en-GB\"},{\"cultureCode\":\"nl-BE\",\"translatedName\":\"NL-NL\"},{\"cultureCode\":\"nl-NL\",\"translatedName\":\"NL-BE\"},{\"cultureCode\":\"fr-FR\",\"translatedName\":\"Fr-FR\"}]}"
+					"raw": "{\"name\":\"Updated article\",\"revenueTypeId\":\"{{RevType_CostCenter}}\",\"costCenterId\":\"{{CostCenter}}\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/articles/55cb8b95-9a47-4479-b3f6-9f21acb1a4de",
+					"raw": "http://{{host}}/api/sales/articles",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"articles"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "304 error if return article with current version of if none match",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 304\", function () {",
+							"    pm.response.to.have.status(304);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "\"1\""
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
 					"path": [
 						"api",
 						"sales",
 						"articles",
-						"55cb8b95-9a47-4479-b3f6-9f21acb1a4de"
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "304 if return article with star in if none match",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 304\", function () {",
+							"    pm.response.to.have.status(304);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "\"*\""
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"articles",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "304 if return article with one of current value in if none match",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 304\", function () {",
+							"    pm.response.to.have.status(304);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "\"sderewr\",\"1\",\"2\""
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"articles",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Return article with new if none match",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "\"asdasd\""
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"articles",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Return article with new if none match and digits",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "2"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/articles/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"articles",
+						"{{id}}"
 					]
 				},
 				"description": ""

@@ -1,0 +1,2307 @@
+{
+	"info": {
+		"name": "GL",
+		"_postman_id": "21ad31c4-b883-ab17-a45b-cebea68f2803",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Retrieve all accounts default",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"subanalysis\");",
+							"});",
+							"",
+							" var jsonData = JSON.parse(responseBody);",
+							"    postman.setEnvironmentVariable(\"total\", jsonData.total);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all accounts Balance+Profit and Loss",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"subanalysis\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							"tests[\"Check total is the same as for all accounts request\"] = jsonData.total == (postman.getEnvironmentVariable(\"total\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=balance,profitandloss",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "balance,profitandloss",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all accounts from other pages with offset parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"subanalysis\");",
+							"});",
+							"",
+							"pm.test(\"Check page size was set correctly\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.pageSize).to.eql(5);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?offset=0&limit=5&types=balance&searchPattern=Goodwill",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0",
+							"equals": true
+						},
+						{
+							"key": "limit",
+							"value": "5",
+							"equals": true
+						},
+						{
+							"key": "types",
+							"value": "balance",
+							"equals": true
+						},
+						{
+							"key": "searchPattern",
+							"value": "Goodwill",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all accounts from second page with offset parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"subanalysis\");",
+							"});",
+							"",
+							"pm.test(\"Check page size was set correctly\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.pageSize).to.eql(15);",
+							"});",
+							"",
+							"pm.test(\"Check page index was set correctly\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.pageIndex).to.eql(2);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?offset=15&limit=15",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "15",
+							"equals": true
+						},
+						{
+							"key": "limit",
+							"value": "15",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "400 Retrieve all accounts with offset parameter and wrong limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"The field Limit must be between 1 and 2147483647.\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?offset=30&limit=-1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "30",
+							"equals": true
+						},
+						{
+							"key": "limit",
+							"value": "-1",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all accounts with search parameter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"defaultVatCode\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"filteredTotal\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?searchPattern=4000",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "searchPattern",
+							"value": "4000",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve subanalised with DEB account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"defaultVatCode\");",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?linkedAccountByType=Debtor",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "linkedAccountByType",
+							"value": "Debtor",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all Balance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set balance Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"BALId\", jsonData.page[i].id);",
+							"    i++;",
+							"});",
+							"",
+							"pm.test(\"Set balance code\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"BALCode\", jsonData.page[i].code);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=balance",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "balance",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve 1 Balance by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							"tests[\"Check code for balance account\"] = jsonData.code == (postman.getEnvironmentVariable(\"BALCode\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts/{{BALId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts",
+						"{{BALId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all Profit and loss",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set PNL Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"PNLId\", jsonData.page[i].id);",
+							"    i++;",
+							"});",
+							"",
+							"pm.test(\"Set PNL code\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"PNLCode\", jsonData.page[i].code);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=profitandloss",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "profitandloss",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve 1 Profit and loss by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							"tests[\"Check code for PNL account\"] = jsonData.code == (postman.getEnvironmentVariable(\"PNLCode\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts/{{PNLId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts",
+						"{{PNLId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all Cost Center",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set Cost Center Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"CCId\", jsonData.page[i].id);",
+							"    i++;",
+							"});",
+							"",
+							"pm.test(\"Set Cost Center code\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"CCCode\", jsonData.page[i].code);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=CostCenter&level=2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "CostCenter",
+							"equals": true
+						},
+						{
+							"key": "level",
+							"value": "2",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve 1Cost Center by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							"tests[\"Check code for CC account\"] = jsonData.code == (postman.getEnvironmentVariable(\"CCCode\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts/{{CCId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts",
+						"{{CCId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all Projects",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set Project Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"PRJId\", jsonData.page[i].id);",
+							"    i++;",
+							"});",
+							"",
+							"pm.test(\"Set Project code\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"PRJCode\", jsonData.page[i].code);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=project&level=3",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "project",
+							"equals": true
+						},
+						{
+							"key": "level",
+							"value": "3",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve 1Project by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							"tests[\"Check code for PRJ account\"] = jsonData.code == (postman.getEnvironmentVariable(\"PRJCode\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts/{{PRJId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts",
+						"{{PRJId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all Customers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set Customer Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"DEBId\", jsonData.page[i].id);",
+							"    i++;",
+							"});",
+							"",
+							"pm.test(\"Set Customer code\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"DEBCode\", jsonData.page[i].code);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=customer&level=2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "customer",
+							"equals": true
+						},
+						{
+							"key": "level",
+							"value": "2",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve 1Customer by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							"tests[\"Check code for DEB account\"] = jsonData.code == (postman.getEnvironmentVariable(\"DEBCode\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts/{{DEBId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts",
+						"{{DEBId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all Suppliers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set supplier Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"CRDId\", jsonData.page[i].id);",
+							"    i++;",
+							"});",
+							"",
+							"pm.test(\"Set supplier code\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"CRDCode\", jsonData.page[i].code);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=supplier&level=2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "supplier",
+							"equals": true
+						},
+						{
+							"key": "level",
+							"value": "2",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve 1 Supplier by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							"tests[\"Check code for CRD account\"] = jsonData.code == (postman.getEnvironmentVariable(\"CRDCode\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts/{{CRDId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts",
+						"{{CRDId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all Fixed Asset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set fixed asset Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"FAId\", jsonData.page[i].id);",
+							"    i++;",
+							"});",
+							"",
+							"pm.test(\"Set fixed asset code\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"FACode\", jsonData.page[i].code);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=FixedAsset&level=3",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "FixedAsset",
+							"equals": true
+						},
+						{
+							"key": "level",
+							"value": "3",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve 1 Fixed Asset by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							"tests[\"Check code for FA account\"] = jsonData.code == (postman.getEnvironmentVariable(\"FACode\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts/{{FAId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts",
+						"{{FAId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all Activity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Set Activity Id\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"AId\", jsonData.page[i].id);",
+							"    i++;",
+							"});",
+							"",
+							"pm.test(\"Set Activity code\", function () {",
+							"    i=0;",
+							"    postman.setEnvironmentVariable(\"ACode\", jsonData.page[i].code);",
+							"    i++;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=Activity&level=4",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "Activity",
+							"equals": true
+						},
+						{
+							"key": "level",
+							"value": "4",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve 1 Activity by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 200\"] = pm.response.to.have.status(200);",
+							"tests[\"Check code for Activity account\"] = jsonData.code == (postman.getEnvironmentVariable(\"ACode\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts/{{AId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts",
+						"{{AId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "404 if ID of account not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Status code is 404\"] = pm.response.to.have.status(404);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts/01f81416-ced4-495e-911c-916efad651be",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts",
+						"01f81416-ced4-495e-911c-916efad651be"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve list of GL with wrong level",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check the list is empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(0);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?level=1&types=CostCenter",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "level",
+							"value": "1",
+							"equals": true
+						},
+						{
+							"key": "types",
+							"value": "CostCenter",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve list of Balance GL whith linked type NONE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"defaultVatCode\");",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=Balance&linkedAccountByType=None",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "Balance",
+							"equals": true
+						},
+						{
+							"key": "linkedAccountByType",
+							"value": "None",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve list of Profit and Loss GL whith linked type NONE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"defaultVatCode\");",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "twinfield-allow-session-expire",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "C+B+z"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "oB2iY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/api/bookkeeping/accounts?types=profitandloss&linkedAccountByType=None",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"bookkeeping",
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "profitandloss",
+							"equals": true
+						},
+						{
+							"key": "linkedAccountByType",
+							"value": "None",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

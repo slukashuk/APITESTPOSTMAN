@@ -15,8 +15,8 @@
 						"type": "text/javascript",
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"idCustomer\", jsonData.id);",
-							"",
+							"postman.setEnvironmentVariable(\"idCustomer\", jsonData.id);",
+							"postman.setEnvironmentVariable(\"idGL\", jsonData.generalLedgerAccountId);",
 							"",
 							"",
 							"pm.test(\"Status code is 201\", function () {",
@@ -56,11 +56,11 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -83,17 +83,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"generalLedgerAccountId\":\"5d7f5639-e868-4c07-9854-b361963fb0e9\",\"defaultCountryCode\":\"NL\",\"type\":\"Business\",\"culture\":\"en-GB\",\"addresses\":[{\"countryCode\":\"NL\",\"isDefault\":true,\"addressType\":\"Invoice\",\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":[],\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":30,\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":0,\"manager\":null,\"outstandingPaymentsRemindType\":\"StoreToFileManager\"},\"cultureBind\":{\"code\":\"en-GB\",\"localisedName\":\"English (United Kingdom)\",\"caption\":\"English (United Kingdom)\",\"value\":\"en-GB\"},\"discountPremiumItemId\":null,\"sepaCollectionTypeSettings\":null,\"name\":\"New customer\"}"
+					"raw": "{\"name\":\"11New customer\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/customers",
+					"raw": "http://{{host}}/api/sales/customers",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -144,15 +141,15 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
-						"value": "\"33\""
+						"value": "\"3\""
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -175,14 +172,11 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}",
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -234,7 +228,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -242,7 +236,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -263,14 +257,11 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}",
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -283,14 +274,16 @@
 			"response": []
 		},
 		{
-			"name": "Update just deleted customer",
+			"name": "409 error when update just deleted customer",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"//tests should be writen after fixing bug - response should be 4.."
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
 						]
 					}
 				}
@@ -329,15 +322,15 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
-						"value": "\"99\""
+						"value": "\"*\""
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -360,17 +353,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"id\":\"9f2e89cb-311b-42ec-b2c0-ed0abc1224ff\",\"version\":5,\"number\":\"1094\",\"name\":\"Update deleted customer\",\"webSite\":null,\"type\":\"Business\",\"segmentCode\":null,\"culture\":\"en-GB\",\"defaultCountryCode\":\"NL\",\"addresses\":[{\"subsectionId\":\"3988676d-a103-4503-9d8d-23b8db343ac4\",\"addressType\":\"Invoice\",\"addressLine1\":null,\"addressLine2\":null,\"postalCode\":null,\"city\":null,\"countryCode\":\"NL\",\"forAttentionOf\":null,\"phone\":null,\"fax\":null,\"vatNumber\":null,\"commerceNumber\":null,\"email\":null,\"isDefault\":true,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"subsectionId\":\"8d04a94f-4c51-48d9-a6e2-34bc087bf49c\",\"accountHolder\":null,\"accountNumber\":null,\"iban\":null,\"bicCode\":null,\"code\":null,\"name\":null,\"addressLine1\":null,\"addressLine2\":null,\"postalCode\":null,\"addressNo\":null,\"state\":null,\"city\":null,\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":null,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"billingEmail\":null,\"electronicBillingEnabled\":false,\"generalLedgerAccountId\":\"5d7f5639-e868-4c07-9854-b361963fb0e9\",\"generalLedgerAccountDisplayName\":null,\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":30,\"remittanceAdviceEmail\":null,\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":0,\"manager\":null,\"managersComment\":null,\"outstandingPaymentsRemindType\":\"StoreToFileManager\",\"outstandingPaymentsRemindEmail\":null},\"sepaCollectionTypeSettings\":null,\"blocked\":false,\"deleted\":false,\"collectionTypeId\":null,\"discountPremiumItemId\":null,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff\"},\"patch\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff\"},\"vatnumber\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff/vatnumber\"},\"createpostingrule\":{\"href\":\"http://tardis.twinfield.com:8180/api/bookkeeping/postingrule\"},\"timeline\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff/timeline\"},\"block\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/9f2e89cb-311b-42ec-b2c0-ed0abc1224ff/block\"}},\"cultureBind\":{\"code\":\"en-GB\",\"localisedName\":\"English (United Kingdom)\",\"caption\":\"English (United Kingdom)\",\"value\":\"en-GB\"}}"
+					"raw": "{\"name\":\"Update restored customer\",\"addresses\":[{\"subsectionId\":\"dd68aaaf-05c0-41b9-8479-3f2e3c3f0e9f\",\"addressType\":\"Invoice\",\"addressLine1\":\"address 1009\",\"addressLine2\":\"\",\"postalCode\":\"I Postcode\",\"city\":\"I Place\",\"countryCode\":\"NL\",\"forAttentionOf\":\"I Tav\",\"phone\":\"I Telefoon\",\"fax\":\"I Fax\",\"vatNumber\":\"155676842B01\",\"commerceNumber\":\"I KVK\",\"email\":\"testcollect@twinfield.com\",\"isDefault\":true,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"subsectionId\":\"a21f3ad0-d04e-4944-b560-2dfcf8dab701\",\"accountHolder\":null,\"accountNumber\":null,\"iban\":null,\"bicCode\":null,\"code\":null,\"name\":null,\"addressLine1\":null,\"addressLine2\":null,\"postalCode\":null,\"addressNo\":null,\"state\":null,\"city\":null,\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":null,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"billingEmail\":\"testcollect@twinfield.com\",\"electronicBillingEnabled\":true,\"generalLedgerAccountId\":\"{{idGL}}\",\"generalLedgerAccountDisplayName\":\"1300 - Debiteuren\",\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":3,\"remittanceAdviceEmail\":\"\",\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":5,\"manager\":{\"code\":\"SASKIA\",\"name\":\"Saskia\"},\"managersComment\":\"\",\"outstandingPaymentsRemindType\":\"DoNotRemind\",\"outstandingPaymentsRemindEmail\":\"testcollect@twinfield.com\"},\"sepaCollectionTypeSettings\":null,\"blocked\":false,\"deleted\":false,\"discountPremiumItemId\":null,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"patch\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"vatnumber\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/vatnumber\"},\"createpostingrule\":{\"href\":\"http://tardis.twinfield.com:8180/api/bookkeeping/postingrule\"},\"timeline\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/timeline\"},\"block\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/block\"}},\"cultureBind\":{\"code\":\"nl-BE\",\"localisedName\":\"Nederlands (België)\",\"caption\":\"Nederlands (België)\",\"value\":\"nl-BE\"}}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}",
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -431,7 +421,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -439,7 +429,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -455,14 +445,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}/restore",
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}/restore",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -524,7 +511,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -532,7 +519,7 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -548,14 +535,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}/restore",
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}/restore",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
 					"path": [
 						"api",
 						"sales",
@@ -618,7 +602,7 @@
 					},
 					{
 						"key": "host",
-						"value": "tardis.twinfield.com:8180"
+						"value": "{{host}}"
 					},
 					{
 						"key": "if-match",
@@ -626,7 +610,833 @@
 					},
 					{
 						"key": "origin",
-						"value": "http://tardis.twinfield.com:8180"
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "sjfg9"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "72mVi"
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":\"6aff1eb0-c999-4085-a838-f15ad4a0ac19\",\"version\":4,\"number\":\"1009\",\"name\":\"Update restored customer\",\"webSite\":\"www.twinfield.com\",\"type\":\"Business\",\"segmentCode\":\"\",\"culture\":\"nl-BE\",\"defaultCountryCode\":\"NL\",\"addresses\":[{\"subsectionId\":\"dd68aaaf-05c0-41b9-8479-3f2e3c3f0e9f\",\"addressType\":\"Invoice\",\"addressLine1\":\"address 1009\",\"addressLine2\":\"\",\"postalCode\":\"I Postcode\",\"city\":\"I Place\",\"countryCode\":\"NL\",\"forAttentionOf\":\"I Tav\",\"phone\":\"I Telefoon\",\"fax\":\"I Fax\",\"vatNumber\":\"155676842B01\",\"commerceNumber\":\"I KVK\",\"email\":\"testcollect@twinfield.com\",\"isDefault\":true,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"subsectionId\":\"a21f3ad0-d04e-4944-b560-2dfcf8dab701\",\"accountHolder\":null,\"accountNumber\":null,\"iban\":null,\"bicCode\":null,\"code\":null,\"name\":null,\"addressLine1\":null,\"addressLine2\":null,\"postalCode\":null,\"addressNo\":null,\"state\":null,\"city\":null,\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":null,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"billingEmail\":\"testcollect@twinfield.com\",\"electronicBillingEnabled\":true,\"generalLedgerAccountId\":\"{{idGL}}\",\"generalLedgerAccountDisplayName\":\"1300 - Debiteuren\",\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":3,\"remittanceAdviceEmail\":\"\",\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":5,\"manager\":{\"code\":\"SASKIA\",\"name\":\"Saskia\"},\"managersComment\":\"\",\"outstandingPaymentsRemindType\":\"DoNotRemind\",\"outstandingPaymentsRemindEmail\":\"testcollect@twinfield.com\"},\"sepaCollectionTypeSettings\":null,\"blocked\":false,\"deleted\":false,\"discountPremiumItemId\":null,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"patch\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"vatnumber\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/vatnumber\"},\"createpostingrule\":{\"href\":\"http://tardis.twinfield.com:8180/api/bookkeeping/postingrule\"},\"timeline\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/timeline\"},\"block\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/block\"}},\"cultureBind\":{\"code\":\"nl-BE\",\"localisedName\":\"Nederlands (België)\",\"caption\":\"Nederlands (België)\",\"value\":\"nl-BE\"}}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update just restored customer copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2604",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"*\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "sjfg9"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "72mVi"
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":\"6aff1eb0-c999-4085-a838-f15ad4a0ac19\",\"version\":4,\"number\":\"1009\",\"name\":\"Update restored customer\",\"webSite\":\"www.twinfield.com\",\"type\":\"Business\",\"segmentCode\":\"\",\"culture\":\"nl-BE\",\"defaultCountryCode\":\"NL\",\"addresses\":[{\"subsectionId\":\"dd68aaaf-05c0-41b9-8479-3f2e3c3f0e9f\",\"addressType\":\"Invoice\",\"addressLine1\":\"address 1009\",\"addressLine2\":\"\",\"postalCode\":\"I Postcode\",\"city\":\"I Place\",\"countryCode\":\"NL\",\"forAttentionOf\":\"I Tav\",\"phone\":\"I Telefoon\",\"fax\":\"I Fax\",\"vatNumber\":\"155676842B01\",\"commerceNumber\":\"I KVK\",\"email\":\"testcollect@twinfield.com\",\"isDefault\":true,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"subsectionId\":\"a21f3ad0-d04e-4944-b560-2dfcf8dab701\",\"accountHolder\":null,\"accountNumber\":null,\"iban\":null,\"bicCode\":null,\"code\":null,\"name\":null,\"addressLine1\":null,\"addressLine2\":null,\"postalCode\":null,\"addressNo\":null,\"state\":null,\"city\":null,\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":null,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"billingEmail\":\"testcollect@twinfield.com\",\"electronicBillingEnabled\":true,\"generalLedgerAccountId\":\"{{idGL}}\",\"generalLedgerAccountDisplayName\":\"1300 - Debiteuren\",\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":3,\"remittanceAdviceEmail\":\"\",\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":5,\"manager\":{\"code\":\"SASKIA\",\"name\":\"Saskia\"},\"managersComment\":\"\",\"outstandingPaymentsRemindType\":\"DoNotRemind\",\"outstandingPaymentsRemindEmail\":\"testcollect@twinfield.com\"},\"sepaCollectionTypeSettings\":null,\"blocked\":false,\"deleted\":false,\"discountPremiumItemId\":null,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"patch\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"vatnumber\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/vatnumber\"},\"createpostingrule\":{\"href\":\"http://tardis.twinfield.com:8180/api/bookkeeping/postingrule\"},\"timeline\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/timeline\"},\"block\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/block\"}},\"cultureBind\":{\"code\":\"nl-BE\",\"localisedName\":\"Nederlands (België)\",\"caption\":\"Nederlands (België)\",\"value\":\"nl-BE\"}}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "409 error when recreate already recreated customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Cannot request account recreation for customer which already has an account.\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "content-length",
+						"value": "55",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "dtHLs",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "Y1dmK",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"headers\":{\"Accept\":\"application/vnd.twinfield+json\"}}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}/recreateaccount",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}",
+						"recreateaccount"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "409 error when recreate already recreated customer second time",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "content-length",
+						"value": "55",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "dtHLs",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "Y1dmK",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"headers\":{\"Accept\":\"application/vnd.twinfield+json\"}}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}/recreateaccount",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}",
+						"recreateaccount"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create new customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"idCustomer\", jsonData.id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "content-length",
+						"value": "877",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "XgXdG",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "AMOu6",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"New customer\"}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "\"1\""
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete created customer with the same if-match version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"3\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "mszCR",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "AMOu6",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "412 error when delete already deleted customer with the old if-match version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"Resource version changed. Expected: 2, Actual: 3\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"2\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "mszCR",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "AMOu6",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "409 error when delete already deleted customer with correct if-match version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"3\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "mszCR",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "AMOu6",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "412 error if update just deleted customer with old if-match value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"Resource version changed. Expected: 2, Actual: 3\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2604",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"2\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
 					},
 					{
 						"key": "proxy-connection",
@@ -647,17 +1457,1326 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"id\":\"6aff1eb0-c999-4085-a838-f15ad4a0ac19\",\"version\":4,\"number\":\"1009\",\"name\":\"Update restored customer\",\"webSite\":\"www.twinfield.com\",\"type\":\"Business\",\"segmentCode\":\"\",\"culture\":\"nl-BE\",\"defaultCountryCode\":\"NL\",\"addresses\":[{\"subsectionId\":\"dd68aaaf-05c0-41b9-8479-3f2e3c3f0e9f\",\"addressType\":\"Invoice\",\"addressLine1\":\"address 1009\",\"addressLine2\":\"\",\"postalCode\":\"I Postcode\",\"city\":\"I Place\",\"countryCode\":\"NL\",\"forAttentionOf\":\"I Tav\",\"phone\":\"I Telefoon\",\"fax\":\"I Fax\",\"vatNumber\":\"155676842B01\",\"commerceNumber\":\"I KVK\",\"email\":\"testcollect@twinfield.com\",\"isDefault\":true,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"subsectionId\":\"f6be57ce-84cb-4430-9f6c-6d5da061166e\",\"accountHolder\":\"Standard bank\",\"accountNumber\":\"123456789\",\"iban\":\"\",\"bicCode\":\"\",\"code\":\"\",\"name\":\"\",\"addressLine1\":\"\",\"addressLine2\":\"\",\"postalCode\":\"\",\"addressNo\":\"\",\"state\":\"\",\"city\":\"Standard Bank 5\",\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":null,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"billingEmail\":\"testcollect@twinfield.com\",\"electronicBillingEnabled\":true,\"generalLedgerAccountId\":\"5d7f5639-e868-4c07-9854-b361963fb0e9\",\"generalLedgerAccountDisplayName\":\"1300 - Debiteuren\",\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":3,\"remittanceAdviceEmail\":\"\",\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":5,\"manager\":{\"code\":\"SASKIA\",\"name\":\"Saskia\"},\"managersComment\":\"\",\"outstandingPaymentsRemindType\":\"DoNotRemind\",\"outstandingPaymentsRemindEmail\":\"testcollect@twinfield.com\"},\"sepaCollectionTypeSettings\":null,\"blocked\":false,\"deleted\":false,\"collectionTypeId\":\"a6ec8e5f-6507-4719-ae42-74898f28b25c\",\"discountPremiumItemId\":null,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"patch\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"vatnumber\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/vatnumber\"},\"createpostingrule\":{\"href\":\"http://tardis.twinfield.com:8180/api/bookkeeping/postingrule\"},\"timeline\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/timeline\"},\"block\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/block\"}},\"cultureBind\":{\"code\":\"nl-BE\",\"localisedName\":\"Nederlands (België)\",\"caption\":\"Nederlands (België)\",\"value\":\"nl-BE\"}}"
+					"raw": "{\"generalLedgerAccountId\":\"{{idGL}}\",\"defaultCountryCode\":\"NL\",\"type\":\"Business\",\"culture\":\"en-GB\",\"addresses\":[{\"countryCode\":\"NL\",\"isDefault\":true,\"addressType\":\"Invoice\",\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":[],\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":30,\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":0,\"manager\":null,\"outstandingPaymentsRemindType\":\"StoreToFileManager\"},\"cultureBind\":{\"code\":\"en-GB\",\"localisedName\":\"English (United Kingdom)\",\"caption\":\"English (United Kingdom)\",\"value\":\"en-GB\"},\"discountPremiumItemId\":null,\"sepaCollectionTypeSettings\":null,\"name\":\"Customer 1\"}"
 				},
 				"url": {
-					"raw": "http://tardis.twinfield.com:8180/api/sales/customers/{{idCustomer}}",
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
 					"protocol": "http",
 					"host": [
-						"tardis",
-						"twinfield",
-						"com"
+						"{{host}}"
 					],
-					"port": "8180",
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "409 error if update deleted customer with correct if-match value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2604",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"3\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "sjfg9"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "72mVi"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":\"6aff1eb0-c999-4085-a838-f15ad4a0ac19\",\"version\":4,\"number\":\"1009\",\"name\":\"Update restored customer\",\"webSite\":\"www.twinfield.com\",\"type\":\"Business\",\"segmentCode\":\"\",\"culture\":\"nl-BE\",\"defaultCountryCode\":\"NL\",\"addresses\":[{\"subsectionId\":\"dd68aaaf-05c0-41b9-8479-3f2e3c3f0e9f\",\"addressType\":\"Invoice\",\"addressLine1\":\"address 1009\",\"addressLine2\":\"\",\"postalCode\":\"I Postcode\",\"city\":\"I Place\",\"countryCode\":\"NL\",\"forAttentionOf\":\"I Tav\",\"phone\":\"I Telefoon\",\"fax\":\"I Fax\",\"vatNumber\":\"155676842B01\",\"commerceNumber\":\"I KVK\",\"email\":\"testcollect@twinfield.com\",\"isDefault\":true,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"banks\":[{\"subsectionId\":\"a21f3ad0-d04e-4944-b560-2dfcf8dab701\",\"accountHolder\":null,\"accountNumber\":null,\"iban\":null,\"bicCode\":null,\"code\":null,\"name\":null,\"addressLine1\":null,\"addressLine2\":null,\"postalCode\":null,\"addressNo\":null,\"state\":null,\"city\":null,\"countryCode\":\"NL\",\"isDefault\":true,\"customFields\":null,\"isPostalCodeCityCatalogAvailable\":false,\"countryNameBind\":{\"value\":\"NL\",\"caption\":\"Netherlands\"}}],\"billingEmail\":\"testcollect@twinfield.com\",\"electronicBillingEnabled\":true,\"generalLedgerAccountId\":\"{{idGL}}\",\"generalLedgerAccountDisplayName\":\"1300 - Debiteuren\",\"sendInvoicesAs\":\"Link\",\"discount\":null,\"dueDays\":3,\"remittanceAdviceEmail\":\"\",\"remittanceAdviceSendType\":\"StoreToFileManager\",\"creditManagement\":{\"limit\":5,\"manager\":{\"code\":\"SASKIA\",\"name\":\"Saskia\"},\"managersComment\":\"\",\"outstandingPaymentsRemindType\":\"DoNotRemind\",\"outstandingPaymentsRemindEmail\":\"testcollect@twinfield.com\"},\"sepaCollectionTypeSettings\":null,\"blocked\":false,\"deleted\":false,\"discountPremiumItemId\":null,\"_links\":{\"self\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"update\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"patch\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"delete\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19\"},\"vatnumber\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/vatnumber\"},\"createpostingrule\":{\"href\":\"http://tardis.twinfield.com:8180/api/bookkeeping/postingrule\"},\"timeline\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/timeline\"},\"block\":{\"href\":\"http://tardis.twinfield.com:8180/api/sales/customers/6aff1eb0-c999-4085-a838-f15ad4a0ac19/block\"}},\"cultureBind\":{\"code\":\"nl-BE\",\"localisedName\":\"Nederlands (België)\",\"caption\":\"Nederlands (België)\",\"value\":\"nl-BE\"}}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "412 error if partially update customer with old if-match value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Resource version changed. Expected: 2, Actual: 3\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2604",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"2\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "sjfg9"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "72mVi"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Update deleted customer\"}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "409 error if update deleted customer with correct if-match value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2604",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"*\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "sjfg9"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "72mVi"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Update restored customer\"}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "400 error if update deleted customer with 0 if-match value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"If-Match header is missing proper Etag\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2604",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"0\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "sjfg9"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "72mVi"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Update restored customer\"}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "400 error if update deleted customer with letters in if-match value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"If-Match header is missing proper Etag\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2604",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"bla\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "sjfg9",
+						"disabled": true
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "72mVi",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Update restored customer\"}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "409 error if restore customer with old version if-match",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2613",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"2\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}/restore",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}",
+						"restore"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "400 error if restore customer with o etag",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"If-Match header is missing proper Etag\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2613",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"0\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}/restore",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}",
+						"restore"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "400 error if restore customer with letters in if-match",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"If-Match header is missing proper Etag\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2613",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"werwe\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}/restore",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}",
+						"restore"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "No error if restore customer with correct if-match version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2613",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"3\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}/restore",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}",
+						"restore"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "No error if partially update customer with correct if-match value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "content-length",
+						"value": "2604",
+						"disabled": true
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-match",
+						"value": "\"*\""
+					},
+					{
+						"key": "origin",
+						"value": "{{host}}"
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					},
+					{
+						"key": "x-ms-request-id",
+						"value": "sjfg9"
+					},
+					{
+						"key": "x-ms-request-root-id",
+						"value": "72mVi"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Update restored customer\"}"
+				},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve customer with new if-none-match",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-none-match",
+						"value": "\"AYAAAQEBAA==v2\""
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "304 error if retrieve customer with if-none-match and star",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 304\", function () {",
+							"    pm.response.to.have.status(304);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-none-match",
+						"value": "\"*\""
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "304 error if retrieve customer with current if-none-match and letters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 304\", function () {",
+							"    pm.response.to.have.status(304);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-none-match",
+						"value": "\"AQAAAQEBAA==v5\""
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve customer with new if-none-match and many values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-none-match",
+						"value": "\"AYAAAQEBAA==v*\",\"rewr=v*\""
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"customers",
+						"{{idCustomer}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve customer with current if-none-match and many values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 304\", function () {",
+							"    pm.response.to.have.status(304);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/vnd.twinfield+json;version=latest"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "{{cookie}}"
+					},
+					{
+						"key": "host",
+						"value": "{{host}}"
+					},
+					{
+						"key": "if-none-match",
+						"value": "\"*\", \"v2\", \"AQAAAQEBAA\""
+					},
+					{
+						"key": "proxy-connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}/api/sales/customers/{{idCustomer}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
 					"path": [
 						"api",
 						"sales",
